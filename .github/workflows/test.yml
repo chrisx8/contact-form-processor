@@ -27,3 +27,4 @@ jobs:
         uvicorn main:app &
         sleep 2
         curl -Lf 127.0.0.1:8000
+        killall uvicorn
