@@ -7,6 +7,8 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
     env:
+      MAIL_FROM: ci.from@localhost
+      MAIL_TO: ci.to@localhost
       SMTP_HOSTNAME: localhost
       SMTP_SSL_PORT: 8465
     strategy:
