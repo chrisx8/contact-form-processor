@@ -1,6 +1,6 @@
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Form, Response, status
 from os import environ
-from helpers import send_mail
+from helpers import send_mail, verify_hcaptcha
 from models import Message
 
 # get config options from environment variable
@@ -21,11 +21,12 @@ async def root():
 
 
 @app.post('/contact/form/')
-async def submit_contact_form(name: str = Form(...),
+async def submit_contact_form(response: Response,
+                              name: str = Form(...),
                               email: str = Form(...),
                               subject: str = Form(...),
                               message: str = Form(...),
-                              hcaptcha_response: str = Form(...)):
+                              h_captcha_response: str = Form(...)):
     '''
     Processes contact form submission.\n
     Accepts an HTML form via a POST request and validates form data and the
@@ -33,7 +34,14 @@ async def submit_contact_form(name: str = Form(...),
     If validation passes, send email to site owner, and return success message 
     in JSON. Otherwise, return an error message in JSON.
     '''
-    # TODO: validate the form
+    # TODO: validate email address
+
+    # verify hCaptcha response
+    if not verify_hcaptcha(hcaptcha_response):
+        # error if verification fails
+        response.status_code = 400
+        return {'error': 'CAPTCHA verification failed. Please try again.'}
+
     # inject into message for outgoing mail
     subject = '[CONTACT FORM]' + subject
     message += '\n\n' + '-' * 80 + f'\nMessage from {name} - {email}'
