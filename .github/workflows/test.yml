@@ -6,6 +6,9 @@ jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
+    env:
+      SMTP_HOSTNAME: localhost
+      SMTP_SSL_PORT: 8465
     strategy:
       matrix:
         python-version: ['3.8', '3.9', '3.10']
