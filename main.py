@@ -12,7 +12,20 @@ assert MAIL_FROM, 'MAIL_FROM is not configured!'
 assert MAIL_TO, 'MAIL_TO is not configured!'
 
 # start FastAPI app
-app = FastAPI()
+description = '''
+### A fast and simple contact form processor/handler, powered by FastAPI.\n
+Submit a contact form in JSON via POST requests to `/contact/`, and if the form
+is valid, an email will be sent to the site owner.
+'''
+app = FastAPI(
+    title='contact-form-processor',
+    version='0.1.0',
+    description=description,
+    license_info={
+        "name": "GNU AGPLv3",
+        "url": "https://www.gnu.org/licenses/agpl-3.0.en.html",
+    },
+)
 
 
 @app.get('/')
