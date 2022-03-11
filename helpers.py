@@ -1,3 +1,4 @@
+import re
 import requests
 import smtplib
 import ssl
@@ -45,6 +46,17 @@ def send_mail(mail_from, mail_to, subject, body, reply_to=None):
             msg['Reply-To'] = reply_to
         # send plain text mail with subject
         server.send_message(msg)
+
+
+def validate_email(email):
+    '''
+    Validates an email address.
+    Uses an "email address regex that 99.9% works," according to emailregex.com
+    Parameter: email address (like 'mail@example.com')
+    Returns: True if validation passes. False otherwise.
+    '''
+    email_regex = r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)'
+    return re.fullmatch(email_regex, email)
 
 
 def verify_hcaptcha(response):

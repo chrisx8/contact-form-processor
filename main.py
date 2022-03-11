@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Form, Response, status
 from os import environ
-from helpers import send_mail, verify_hcaptcha
+from helpers import send_mail, validate_email, verify_hcaptcha
 from models import Message
 
 # get config options from environment variable
@@ -33,7 +33,11 @@ async def submit_contact_form(msg: Message, resp: Response):
     If validation passes, send email to site owner, and return success message 
     in JSON. Otherwise, return an error message in JSON.
     '''
-    # TODO: validate email address
+    # validate email address
+    if not validate_email(msg.email):
+        # error if verification fails
+        resp.status_code = 400
+        return {'error': 'Please enter a valid email address.'}
 
     # verify hCaptcha response
     if not verify_hcaptcha(hcaptcha_response):
