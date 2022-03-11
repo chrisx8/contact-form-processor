@@ -34,7 +34,8 @@ def send_mail(mail_from, mail_to, subject, body, reply_to=None):
         server.starttls()
         server.ehlo()
         # authenticate with SMTP server
-        server.login(SMTP_USERNAME, SMTP_PASSWORD)
+        if SMTP_USERNAME and SMTP_PASSWORD:
+            server.login(SMTP_USERNAME, SMTP_PASSWORD)
         # build mail message
         msg = EmailMessage()
         msg['Subject'] = subject
