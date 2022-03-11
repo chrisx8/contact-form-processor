@@ -16,6 +16,45 @@ Configuration is handled via environment variables.
 | `SMTP_USERNAME`      | SMTP username.                                                      | `None`                                 |
 | `SMTP_PASSWORD`      | SMTP password.                                                      | `None`                                 |
 
+## Installation
+
+### Install with Docker
+
+```bash
+# Replace [ADDRESS]:[PORT] with whereever you want the container to listen at
+# When using a reverse proxy, make sure this container is NOT EXPOSED to the
+# Internet! (e.g. listen on 127.0.0.1)
+docker run -d -p [ADDRESS]:[PORT] \
+  --env-file=.env \
+  --restart unless-stopped \
+  --name contact-form-processor \
+  ghcr.io/chrisx8/contact-form-processor:latest
+```
+
+### Install in a virtualenv
+
+- This site only supports Python 3.8 or newer. Make sure Python (3.8 or newer)
+  and `pip` are installed.
+- Install project dependencies.
+
+```bash
+# Create virtualenv
+python3 -m venv venv
+
+# Activate virtualenv and install dependencies
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+- Start server
+
+```bash
+# Replace [ADDRESS]:[PORT] with whereever you want the container to listen at
+# When using a reverse proxy, make sure this container is NOT EXPOSED to the
+# Internet! (e.g. listen on 127.0.0.1)
+uvicorn --host [ADDRESS] --port [PORT] main:app
+```
+
 ## License
 
 Copyright (C) 2022 Chris Xiao
