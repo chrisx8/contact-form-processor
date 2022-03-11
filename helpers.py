@@ -6,18 +6,19 @@ from email.utils import formataddr
 from os import environ
 
 # get SMTP configuration from environment variable
-smtp_config = {
-    'hostname': environ.get('SMTP_HOSTNAME'),
-    'port': environ.get('SMTP_SSL_PORT'),
-    'username': environ.get('SMTP_USERNAME'),
-    'password': environ.get('SMTP_PASSWORD'),
-}
+SMTP_HOSTNAME = environ.get('SMTP_HOSTNAME')
+SMTP_SSL_PORT = environ.get('SMTP_SSL_PORT')
+SMTP_USERNAME = environ.get('SMTP_USERNAME')
+SMTP_PASSWORD = environ.get('SMTP_PASSWORD')
 
 # validate if required options are present
-assert smtp_config['hostname'], 'SMTP_HOSTNAME is not configured!'
-assert smtp_config['port'], 'SMTP_SSL_PORT is not configured!'
+assert SMTP_HOSTNAME, 'SMTP_HOSTNAME is not configured!'
 
-# get hCaptcha site key from environment variable
+# set default SMTP port number (465) if not configured
+if not SMTP_SSL_PORT:
+    SMTP_SSL_PORT = 465
+
+# get hCaptcha secret key from environment variable
 HCAPTCHA_SECRET = environ.get('HCAPTCHA_SECRET')
 
 # create a secure SSL context
@@ -30,10 +31,9 @@ def send_mail(mail_from, mail_to, subject, body, reply_to=None):
     Paramenters: from address, to address, subject, email body/content,
                  reply-to address (optional)
     '''
-    with smtplib.SMTP_SSL(smtp_config['hostname'], smtp_config['port'],
-                          context=ssl_context) as server:
+    with smtplib.SMTP_SSL(SMTP_HOSTNAME, SMTP_SSL_PORT, context=ssl_context) as server:
         # authenticate with SMTP server
-        server.login(smtp_config['username'], smtp_config['password'])
+        server.login(SMTP_USERNAME, SMTP_PASSWORD)
         # build mail message
         msg = EmailMessage()
         msg['Subject'] = subject
