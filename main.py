@@ -40,17 +40,17 @@ async def submit_contact_form(msg: Message, resp: Response):
         return {'error': 'Please enter a valid email address.'}
 
     # verify hCaptcha response
-    if not verify_hcaptcha(hcaptcha_response):
+    if not verify_hcaptcha(msg.hcaptcha_response):
         # error if verification fails
         resp.status_code = 400
         return {'error': 'CAPTCHA verification failed. Please try again.'}
 
     # inject into message for outgoing mail
-    mail_from_name = f'{msg.name} <{MAIL_FROM}>'
-    mail_subj = '[CONTACT FORM]' + msg.subject
-    mail_body = msg.message + '\n\n' + '-' * 80 + \
-        f'\nMessage from {msg.name} - {msg.email}'
+    from_name = f'{msg.name} <{MAIL_FROM}>'
+    reply_to_name = f'{msg.name} <{msg.email}>'
+    subject = f'[CONTACT FORM] {msg.subject}'
+    body = f'{msg.message}\n\n' + '-' * 80 + '\n' + \
+        f'Message from {msg.name} - {msg.email}'
 
-    send_mail(mail_from_name, MAIL_TO, mail_subj,
-              mail_body, reply_to=msg.email)
+    send_mail(from_name, MAIL_TO, subject, body, reply_to=reply_to_name)
     return {'message': 'Your message has been sent successfully. Thanks for reaching out!'}
