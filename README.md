@@ -12,7 +12,7 @@ Configuration is handled via environment variables.
 | `MAIL_FROM`          | "From" address for emails to site owner. Format: `mail@example.com` | **required**                           |
 | `MAIL_TO`            | "To" address for emails to site owner. Format: `mail@example.com`   | **required**                           |
 | `SMTP_HOSTNAME`      | SMTP server hostname                                                | **required**                           |
-| `SMTP_SSL_PORT`      | SSL port number for the SMTP server.                                | `465`                                  |
+| `SMTP_STARTTLS_PORT` | STARTTLS port number for the SMTP server.                           | `587`                                  |
 | `SMTP_USERNAME`      | SMTP username.                                                      | `None`                                 |
 | `SMTP_PASSWORD`      | SMTP password.                                                      | `None`                                 |
 
