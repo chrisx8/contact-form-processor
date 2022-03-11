@@ -7,6 +7,10 @@ from models import Message
 MAIL_FROM = environ.get('MAIL_FROM')
 MAIL_TO = environ.get('MAIL_TO')
 
+# check if MAIL_FROM and MAIL_TO is configured
+assert MAIL_FROM, 'MAIL_FROM is not configured!'
+assert MAIL_TO, 'MAIL_TO is not configured!'
+
 # start FastAPI app
 app = FastAPI()
 
