@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Form
 from os import environ
+from helpers import send_mail
 from models import Message
-from send_mail import send_mail
 
 # get config options from environment variable
 MAIL_FROM = environ.get('MAIL_FROM')
