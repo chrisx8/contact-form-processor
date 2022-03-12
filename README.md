@@ -6,15 +6,16 @@ A fast and simple contact form processor/handler, powered by FastAPI.
 
 Configuration is handled via environment variables.
 
-| Environment variable | Description                                                         | Default                                |
-| -------------------- | ------------------------------------------------------------------- | -------------------------------------- |
-| `HCAPTCHA_SECRET`    | hCaptcha secret key                                                 | `None` (hCaptcha will not be verified) |
-| `MAIL_FROM`          | "From" address for emails to site owner. Format: `mail@example.com` | **required**                           |
-| `MAIL_TO`            | "To" address for emails to site owner. Format: `mail@example.com`   | **required**                           |
-| `SMTP_HOSTNAME`      | SMTP server hostname                                                | **required**                           |
-| `SMTP_STARTTLS_PORT` | STARTTLS port number for the SMTP server.                           | `587`                                  |
-| `SMTP_USERNAME`      | SMTP username.                                                      | `None`                                 |
-| `SMTP_PASSWORD`      | SMTP password.                                                      | `None`                                 |
+| Environment variable   | Description                                                         | Default                                |
+| ---------------------- | ------------------------------------------------------------------- | -------------------------------------- |
+| `CORS_ALLOWED_ORIGINS` | CORS allowed origins, if CORS is needed                             | *blank* (no CORS)                      |
+| `HCAPTCHA_SECRET`      | hCaptcha secret key                                                 | `None` (hCaptcha will not be verified) |
+| `MAIL_FROM`            | "From" address for emails to site owner. Format: `mail@example.com` | **required**                           |
+| `MAIL_TO`              | "To" address for emails to site owner. Format: `mail@example.com`   | **required**                           |
+| `SMTP_HOSTNAME`        | SMTP server hostname                                                | **required**                           |
+| `SMTP_STARTTLS_PORT`   | STARTTLS port number for the SMTP server.                           | `587`                                  |
+| `SMTP_USERNAME`        | SMTP username.                                                      | `None`                                 |
+| `SMTP_PASSWORD`        | SMTP password.                                                      | `None`                                 |
 
 ## Installation
 

@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Form, Response, status
+from fastapi.middleware.cors import CORSMiddleware
 from os import environ
 from helpers import send_mail, validate_email, verify_hcaptcha
 from models import Message
@@ -27,6 +28,18 @@ app = FastAPI(
     },
 )
 
+# fun CORS stuff
+try:
+    # try to configure CORS origins from `CORS_ALLOWED_ORIGINS`
+    CORS_ORIGINS = environ['CORS_ALLOWED_ORIGINS'].split(',')
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=CORS_ORIGINS,
+        allow_methods=['POST', 'HEAD', 'OPTIONS'],
+    )
+except KeyError:
+    # not configured, no CORS
+    pass
 
 @app.get('/')
 async def root():
