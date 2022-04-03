@@ -7,16 +7,20 @@ from os import environ
 
 # get SMTP configuration from environment variable
 SMTP_HOSTNAME = environ.get('SMTP_HOSTNAME')
-SMTP_STARTTLS_PORT = environ.get('SMTP_STARTTLS_PORT')
+SMTP_USE_STARTTLS = (environ.get('SMTP_USE_STARTTLS') == True)
+SMTP_PORT = environ.get('SMTP_PORT')
 SMTP_USERNAME = environ.get('SMTP_USERNAME')
 SMTP_PASSWORD = environ.get('SMTP_PASSWORD')
 
 # validate if required options are present
 assert SMTP_HOSTNAME, 'SMTP_HOSTNAME is not configured!'
 
-# set default SMTP port number (587) if not configured
-if not SMTP_STARTTLS_PORT:
-    SMTP_STARTTLS_PORT = 587
+# set default SMTP port number if not configured
+# default = 25 for non-STARTTLS. 587 for STARTTLS
+if not SMTP_PORT and SMTP_USE_STARTTLS:
+    SMTP_PORT = 587
+elif not SMTP_PORT:
+    SMTP_PORT = 25
 
 # get hCaptcha secret key from environment variable
 HCAPTCHA_SECRET = environ.get('HCAPTCHA_SECRET')
@@ -28,11 +32,12 @@ def send_mail(mail_from, mail_to, subject, body, reply_to=None):
     Paramenters: from address, to address, subject, email body/content,
                  reply-to address (optional)
     '''
-    with smtplib.SMTP(SMTP_HOSTNAME, SMTP_STARTTLS_PORT) as server:
+    with smtplib.SMTP(SMTP_HOSTNAME, SMTP_PORT) as server:
         # STARTTLS
-        server.ehlo()
-        server.starttls()
-        server.ehlo()
+        if SMTP_USE_STARTTLS:
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
         # authenticate with SMTP server
         if SMTP_USERNAME and SMTP_PASSWORD:
             server.login(SMTP_USERNAME, SMTP_PASSWORD)

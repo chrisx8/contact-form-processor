@@ -13,7 +13,8 @@ Configuration is handled via environment variables.
 | `MAIL_FROM`            | "From" address for emails to site owner. Format: `mail@example.com` | **required**                           |
 | `MAIL_TO`              | "To" address for emails to site owner. Format: `mail@example.com`   | **required**                           |
 | `SMTP_HOSTNAME`        | SMTP server hostname                                                | **required**                           |
-| `SMTP_STARTTLS_PORT`   | STARTTLS port number for the SMTP server.                           | `587`                                  |
+| `SMTP_USE_STARTTLS`    | SMTP server uses STARTTLS. Format: `True` or `False`                | `False`                                |
+| `SMTP_PORT`            | Port number for the SMTP server.                                    | `587` (STARTTLS) or `25` (no STARTTLS) |
 | `SMTP_USERNAME`        | SMTP username.                                                      | `None`                                 |
 | `SMTP_PASSWORD`        | SMTP password.                                                      | `None`                                 |
 
