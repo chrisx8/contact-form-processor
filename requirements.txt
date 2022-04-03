@@ -6,6 +6,7 @@ click==8.1.2
 fastapi==0.75.1
 h11==0.13.0
 idna==3.3
+mangum==0.14.1
 pydantic==1.9.0
 requests==2.27.1
 sniffio==1.2.0

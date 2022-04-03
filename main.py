@@ -19,6 +19,9 @@ app = FastAPI(
     },
 )
 
+# load Mangum wrapper
+handler = Mangum(app)
+
 # fun CORS stuff
 try:
     # try to configure CORS origins from `CORS_ALLOWED_ORIGINS`
