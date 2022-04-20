@@ -7,7 +7,7 @@ from os import environ
 
 # get SMTP configuration from environment variable
 SMTP_HOSTNAME = environ.get('SMTP_HOSTNAME')
-SMTP_USE_STARTTLS = (environ.get('SMTP_USE_STARTTLS') == True)
+SMTP_USE_STARTTLS = (environ.get('SMTP_USE_STARTTLS') == 'True')
 SMTP_PORT = environ.get('SMTP_PORT')
 SMTP_USERNAME = environ.get('SMTP_USERNAME')
 SMTP_PASSWORD = environ.get('SMTP_PASSWORD')
