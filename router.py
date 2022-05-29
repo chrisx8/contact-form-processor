@@ -40,7 +40,7 @@ async def submit_contact_form(msg: Message, resp: Response):
         return {'error': 'Please enter a valid email address.'}
 
     # verify hCaptcha response
-    if not verify_hcaptcha(msg.hcaptcha_response):
+    if not verify_hcaptcha(msg.h_captcha_response):
         # error if verification fails
         resp.status_code = 400
         return {'error': 'CAPTCHA verification failed. Please try again.'}

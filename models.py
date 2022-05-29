@@ -7,4 +7,4 @@ class Message(BaseModel):
     email: str
     subject: str
     message: str
-    hcaptcha_response: str
+    h_captcha_response: str
