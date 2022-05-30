@@ -37,13 +37,13 @@ async def submit_contact_form(msg: Message, resp: Response):
     if not validate_email(msg.email):
         # error if verification fails
         resp.status_code = 400
-        return {'error': 'Please enter a valid email address.'}
+        return {'message': 'Please enter a valid email address.'}
 
     # verify hCaptcha response
     if not verify_hcaptcha(msg.h_captcha_response):
         # error if verification fails
         resp.status_code = 400
-        return {'error': 'CAPTCHA verification failed. Please try again.'}
+        return {'message': 'CAPTCHA verification failed. Please try again.'}
 
     # inject into message for outgoing mail
     from_name = f'{msg.name} <{MAIL_FROM}>'
